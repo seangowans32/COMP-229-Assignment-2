@@ -1,0 +1,89 @@
+/* Featured Projects */
+.featured-projects {
+  padding: 100px 0;
+  background-color: var(--black);
+}
+
+.featured-projects h2 {
+  flex: 0 0 100%;
+  text-align: center;
+}
+
+.featured-projects .project-box {
+  padding: 20px;
+  border: 1px solid white;
+  flex: 1 0 30%;
+  position: relative;
+  border-radius: var(--border-radius-5);
+}
+
+.featured-projects .project-box .img-container {
+  width: 100%;
+  padding: 0 0 50%;
+  margin-bottom: 20px;
+}
+
+.featured-projects .project-box ul {
+  margin-bottom: 20px;
+}
+
+.featured-projects .project-box ul li {
+  border: 1px solid var(--orange);
+  padding: 2px 5px;
+  border-radius: var(--border-radius-5);
+  font-size: 14px;
+}
+
+
+/* All Sites */
+.sites {
+  padding: 100px 0;
+  background: linear-gradient(-45deg, var(--orange), var(--red), var(--blue), var(--teal));
+	background-size: 400% 400%;
+	animation: gradient 30s ease infinite;
+  position: relative;
+}
+
+.sites:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+}
+
+.sites .container {
+  position: relative;
+}
+
+.sites h2 {
+  text-align: center;
+}
+
+.sites li {
+  flex: 1 0 15%;
+}
+
+.sites li a {
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  min-height: 80px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .25);
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 300;
+  background-color: rgba(255, 255, 255, .25);
+  border-radius: var(--border-radius-5);
+}
+
+.sites li a:hover {
+  background-color: rgba(255, 255, 255, .15);
+  color: var(--white);
+}

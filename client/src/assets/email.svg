@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512px" height="384px" viewBox="0 0 512 384" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>envelope-solid</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="envelope-solid" fill="#FFFFFF" fill-rule="nonzero">
+            <path d="M48,0 C21.5,0 0,21.5 0,48 C0,63.1 7.1,77.3 19.2,86.4 L236.8,249.6 C248.2,258.1 263.8,258.1 275.2,249.6 L492.8,86.4 C504.9,77.3 512,63.1 512,48 C512,21.5 490.5,0 464,0 L48,0 Z M0,112 L0,320 C0,355.3 28.7,384 64,384 L448,384 C483.3,384 512,355.3 512,320 L512,112 L294.4,275.2 C271.6,292.3 240.4,292.3 217.6,275.2 L0,112 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

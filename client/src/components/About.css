@@ -1,0 +1,34 @@
+.about {
+  padding: 100px 0;
+  background-color: var(--black);
+}
+
+.about .col-left {
+  flex: 0 0 calc(30% - 20px);
+  align-self: flex-start;
+  position: sticky;
+  top: 100px;
+}
+
+.about .img-container {
+  width: 100%;
+  padding: 0 0 100%;
+  border-radius: var(--border-radius-20);
+  border: 1px solid rgba(255, 255, 255, .1);
+}
+
+.about .col-left .button {
+  margin-top: 20px;
+}
+
+.about .content {
+  flex: 0 0 calc(70% - 20px);
+}
+
+.about .content p {
+  margin: 0 0 60px;
+}
+
+.about .content p:last-of-type {
+  margin: 0;
+}
