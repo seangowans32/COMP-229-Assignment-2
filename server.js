@@ -29,7 +29,7 @@ mongoose.connection.on("error", () => {
 app.get("/", (req, res) => {
   res.type("text/plain");
   res.send(
-    "Wake up, Thiago…\nThe Matrix has you…\nFollow the white rabbit.\nKnock, knock, Thiago."
+    "Wake up, Sean…\nThe Matrix has you…\nFollow the white rabbit.\nKnock, knock, Sean."
   );
 });
 

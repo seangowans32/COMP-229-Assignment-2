@@ -244,3 +244,96 @@ a {
 a:hover {
   color: var(--blue);
 }
+
+/* Food Favorites Styles */
+.food-favorites {
+  margin-top: 2rem;
+}
+
+.food-intake-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.food-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.food-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.food-calories {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.food-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-calories-btn, .subtract-calories-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-calories-btn {
+  background: #28a745;
+  color: white;
+}
+
+.add-calories-btn:hover {
+  background: #218838;
+  transform: scale(1.1);
+}
+
+.subtract-calories-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.subtract-calories-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+/* Food Intake Placeholder */
+.food-intake-placeholder {
+  padding: 2rem;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
+  margin-top: 1rem;
+}
+
+.food-intake-placeholder h3 {
+  color: #495057;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.food-intake-placeholder p {
+  color: #6c757d;
+  line-height: 1.5;
+  margin: 0;
+}

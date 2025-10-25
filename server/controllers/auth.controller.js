@@ -5,10 +5,57 @@ import config from "../../config/config.js";
 // REGISTER new user
 export const register = async (req, res) => {
   try {
-    const user = new User(req.body);
+    const { username, email, dateOfBirth, password } = req.body;
+    
+    // Validate required fields
+    if (!username || !email || !dateOfBirth || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+    
+    // Validate password length
+    if (password.length < 6) {
+      return res.status(400).json({ error: "Password must be at least 6 characters long" });
+    }
+    
+    // Validate date of birth
+    const birthDate = new Date(dateOfBirth);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    
+    if (age < 13 || age > 120) {
+      return res.status(400).json({ error: "Invalid date of birth" });
+    }
+    
+    const user = new User({
+      username,
+      email,
+      dateOfBirth: birthDate,
+      password
+    });
+    
     await user.save();
-    res.status(201).json({ message: "Signup successful!", user });
+    
+    // Don't send password back
+    const userResponse = {
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      dateOfBirth: user.dateOfBirth,
+      created: user.created
+    };
+    
+    res.status(201).json({ message: "Registration successful!", user: userResponse });
   } catch (err) {
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyPattern)[0];
+      return res.status(400).json({ error: `${field} already exists` });
+    }
     res.status(400).json({ error: err.message });
   }
 };
@@ -33,7 +80,18 @@ export const login = async (req, res) => {
     };
     
     res.cookie("t", token, cookieOptions);
-    res.json({ token, user: { _id: user._id, name: user.name, email: user.email } });
+    res.json({ 
+      token, 
+      user: { 
+        _id: user._id, 
+        username: user.username, 
+        email: user.email,
+        dateOfBirth: user.dateOfBirth,
+        bodyData: user.bodyData,
+        favoriteFoods: user.favoriteFoods,
+        dailyCalories: user.dailyCalories
+      } 
+    });
   } catch (err) {
     res.status(400).json({ error: "Could not sign in" });
   }
@@ -50,6 +108,118 @@ export const logout = (req, res) => {
   
   res.clearCookie("t", cookieOptions);
   res.json({ message: "Signed out successfully" });
+};
+
+// UPDATE user body data and calorie goals
+export const updateBodyData = async (req, res) => {
+  try {
+    const userId = req.auth._id;
+    const { weight, height, gender, activityLevel, calories } = req.body;
+    
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { 
+        $set: { 
+          bodyData: { weight, height, gender, activityLevel, calories },
+          updated: new Date()
+        }
+      },
+      { new: true }
+    );
+    
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    res.json({ 
+      message: "Body data updated successfully", 
+      bodyData: user.bodyData 
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+// ADD favorite food
+export const addFavoriteFood = async (req, res) => {
+  try {
+    const userId = req.auth._id;
+    const { name, calories } = req.body;
+    
+    if (!name || !calories) {
+      return res.status(400).json({ error: "Name and calories are required" });
+    }
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    // Check if food already exists
+    const existingFood = user.favoriteFoods.find(food => 
+      food.name.toLowerCase() === name.toLowerCase()
+    );
+    
+    if (existingFood) {
+      return res.status(400).json({ error: "This food is already in your favorites" });
+    }
+    
+    user.favoriteFoods.push({ name, calories });
+    await user.save();
+    
+    res.json({ 
+      message: "Food added to favorites", 
+      favoriteFoods: user.favoriteFoods 
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+// UPDATE daily calories
+export const updateDailyCalories = async (req, res) => {
+  try {
+    const userId = req.auth._id;
+    const { dailyCalories } = req.body;
+    
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { 
+        $set: { 
+          dailyCalories: dailyCalories,
+          updated: new Date()
+        }
+      },
+      { new: true }
+    );
+    
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    res.json({ 
+      message: "Daily calories updated", 
+      dailyCalories: user.dailyCalories 
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+// GET user data
+export const getUserData = async (req, res) => {
+  try {
+    const userId = req.auth._id;
+    const user = await User.findById(userId).select('-password');
+    
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    res.json({ user });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };
 
 // MIDDLEWARE: verify JWT for protected routes

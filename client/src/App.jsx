@@ -1,8 +1,8 @@
 import MainRouter from './MainRouter.jsx';
-import EffectsManager from './components/EffectsManager.jsx';
+import EffectsManager from './components-old/EffectsManager.jsx';
 
-import './components/Global.css';
-import './components/Header.css';
+import './components-old/Global.css';
+import './components-old/Header.css';
 
 function App() {
   return (
